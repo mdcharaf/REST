@@ -6,11 +6,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using REST.DB;
+using REST.Repos;
+using REST.Services;
 
 namespace REST
 {
@@ -27,7 +31,14 @@ namespace REST
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "REST", Version = "v1"}); });
+//            services.AddSwaggerGen(c => { c.SwaggerDoc("v    1", new OpenApiInfo {Title = "REST", Version = "v1"}); });
+            services.AddDbContext<RestDbContext>(o =>
+            {
+                o.UseSqlServer("server=localhost;database=REST;trusted_connection=true");
+            });
+
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,8 +47,8 @@ namespace REST
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "REST v1"));
+//                app.UseSwagger();
+//                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "REST v1"));
             }
 
             app.UseHttpsRedirection();
