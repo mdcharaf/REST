@@ -1,17 +1,12 @@
 ﻿using System;
 
-namespace REST.Models
+namespace REST.ActionsParameters
 {
-    public class Author
+    public class CreateAuthorParameter
     {
-        public Guid Id { get; set; }
-
         public string FirstName { get; set; }
-
         public string LastName { get; set; }
-
         public DateTime Dob { get; set; }
-
         public string MainCategory { get; set; }
     }
 }

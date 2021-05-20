@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using REST.ActionsParameters;
+using REST.Models;
+using REST.Resources;
 using REST.Services;
 
 namespace REST.Controllers
@@ -17,10 +20,16 @@ namespace REST.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAuthors()
+        public async Task<IActionResult> GetAuthors([FromQuery] AuthorParameters authorParameters)
         {
-            var result = await _authorService.GetAuthors();
+            if (string.IsNullOrWhiteSpace(authorParameters?.MainCategory))
+            {
+                return new JsonResult(await _authorService.GetAuthors());
+            }
 
+            authorParameters.MainCategory = authorParameters.MainCategory.Trim();
+            var result = await _authorService.GetAuthors(a => a.MainCategory == authorParameters.MainCategory);
+            
             return new JsonResult(result);
         }
 
@@ -32,7 +41,24 @@ namespace REST.Controllers
             {
                 return NotFound();
             }
+
             return Ok(new JsonResult(author));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAuthor([FromBody] CreateAuthorParameter authorParameter)
+        {
+            var author = new Author
+            {
+                FirstName = authorParameter.FirstName,
+                LastName = authorParameter.LastName,
+                Dob = authorParameter.Dob,
+                MainCategory = authorParameter.MainCategory
+            };
+            
+            var result = await _authorService.CreateAuthor(author);
+
+            return CreatedAtAction("GetAuthor", new {id = result.Id}, result);
         }
     }
 }

@@ -11,10 +11,12 @@ namespace REST.Resources
 
         public Guid Id => Model.Id;
 
-        public string FirstNAme => Model.FirstName;
+        public string FirstName => Model.FirstName;
 
         public string LastName => Model.LastName;
 
+        public DateTime Dob => Model.Dob;
+        
         public string MainCategory => Model.MainCategory;
     }
 }

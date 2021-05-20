@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REST", "REST\REST.csproj", "{F46417EE-448C-488B-B57A-9D6CF0698565}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REST.Tests", "REST.Tests\REST.Tests.csproj", "{86524488-6C4F-4CA6-B581-7830BDAFA9E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{F46417EE-448C-488B-B57A-9D6CF0698565}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F46417EE-448C-488B-B57A-9D6CF0698565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F46417EE-448C-488B-B57A-9D6CF0698565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86524488-6C4F-4CA6-B581-7830BDAFA9E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86524488-6C4F-4CA6-B581-7830BDAFA9E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86524488-6C4F-4CA6-B581-7830BDAFA9E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86524488-6C4F-4CA6-B581-7830BDAFA9E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

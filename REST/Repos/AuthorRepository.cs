@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using REST.DB;
 using REST.Models;
@@ -25,6 +26,20 @@ namespace REST.Repos
         public async Task<Author> GetAuthor(Guid id)
         {
             return await _context.Authors.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<IEnumerable<Author>> GetAuthors(Expression<Func<Author, bool>> predicate)
+        {
+            return await _context.Authors.Where(predicate).ToListAsync();
+        }
+
+        public async Task<Author> CreateAuthor(Author author)
+        {
+            author.Id = Guid.NewGuid();
+            await _context.AddAsync(author);
+            await _context.SaveChangesAsync();
+            
+            return author;
         }
     }
 }
